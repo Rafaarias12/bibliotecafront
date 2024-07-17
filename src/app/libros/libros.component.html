@@ -1,0 +1,113 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Libros</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mb-3">
+            <label for="txtTitulo" class="form-label">Titulo</label>
+            <input type="text" class="form-control" id="txtTitulo" [(ngModel)]="title">
+          </div>
+          <div class="col-md-12">
+            <div class="mb-3">
+              <select class="form-select" aria-label="Default select example" [(ngModel)]="categoria">
+                <option *ngFor="let y of lstCategoria" value="{{y.id}}">{{y.descripcion}}</option>
+                <option selected>Categoria</option>
+                
+              </select>
+            </div>
+            
+          </div>
+          <div class="col-md-12">
+            <div class="mb-3">
+              <select class="form-select" aria-label="Default select example" [(ngModel)]="autor">
+                
+                <option *ngFor="let x of lstAutor" value="{{x.id}}">{{x.nombre}} {{x.apellido}}</option>
+                <option selected>Autor</option>
+              </select>
+            </div>
+            
+          </div>
+          <div class="col-md-12">
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Descripción</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="description"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="modal.close('Save click')"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-danger"
+      (click)="postLibros()"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
+
+<div class="container">
+  <div class="row">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-outline-primary" (click)="open(content)">
+              Add
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Buscar por nombre o categoría"
+              (input)="onSearch($event)"
+            />
+          </div>
+        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Categoría</th>
+              <th>Autor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let libro of libros$ | async">
+              <td>{{ libro.titulo }}</td>
+              <td>{{ libro.categoria }}</td>
+              <td>{{ libro.autor }}</td>
+              <td>
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                  <button type="button" class="btn btn-danger" (click)="delete(libro.id)" >Eliminar</button>
+                  <button type="button" class="btn btn-warning" (click)="getDescripcion(libro.descripcion)">Reseña</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

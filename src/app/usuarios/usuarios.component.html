@@ -1,0 +1,111 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Usuarios</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <input type="text" class="form-control" placeholder="Nombre..." [(ngModel)]="nombre">
+            </div>
+            <br/>
+            <div class="col-md-12">
+                <input type="text" class="form-control" placeholder="Nombre de Usuario..." [(ngModel)]="nombreU">
+            </div>
+            <div class="col-md-12">
+                <input type="text" class="form-control" placeholder="Contraseña de Usuario..."[(ngModel)]="pass">
+            </div>
+            <br/>
+            <div class="col-md-12">
+                <select class="form-select" [(ngModel)]="perfil">
+                    <option *ngFor="let z of lstPerfiles" value="{{z.id}}">{{z.descripcion}}</option>
+                    <option value="0" selected>Perfil</option>
+                </select>
+            </div>
+            <br/>
+            <div class="col-md-12">
+                <select class="form-select" [(ngModel)]="activo">
+                    <option selected value="1">Activo</option>
+                    <option value="0">Inactivo</option>
+                </select>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        (click)="modal.close('Save click')"
+      >
+        Close
+      </button>
+      <button
+      type="button"
+      class="btn btn-outline-danger"
+      (click)="postUsuario()"
+    >
+      Save
+    </button>
+    </div>
+    
+  </ng-template>
+
+<div class="container">
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-outline-primary" (click)="open(content)">
+                          Add
+                        </button>
+                      </div>
+                      
+                </div>
+                <div class="row">
+                    <div class="mb-3">
+                        <form [formGroup]="searchForm">
+                            <input type="text" formControlName="search" class="form-control" placeholder="Buscar...">
+                        </form>
+                      </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped"  >
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Usuario</th>
+                                    <th>Perfil</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let x of usuarios">
+                                    <th>{{x.nombre}}</th>
+                                    <th>{{x.user}}</th>
+                                    <th>{{x.perfil}}</th>
+                                    <th>
+                                        <span *ngIf="x.activo === 1">
+                                            Activo
+                                        </span>
+                                        <span *ngIf="x.activo === 0">
+                                            Inactivo
+                                        </span>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

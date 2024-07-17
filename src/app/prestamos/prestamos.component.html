@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <table class="table table-stripe">
+                  <thead>
+                    <tr>
+                      <th>Libro</th>
+                      <th>Estado</th>
+                      <th>Inicio</th>
+                      <th>Final</th>
+                      <th>Entrega</th>
+                      <th>Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let z of lstPrestamos">
+                      <td>{{ z.titulo }}</td>
+                      <td>{{ z.descripcion }}</td>
+                      <td>{{ z.fecha_init }}</td>
+                      <td>{{ z.fecha_final }}</td>
+                      <td>{{ z.fecha_entrega }}</td>
+                      <td>
+                        <div *ngIf="z.fecha_entrega === null">
+                            <button
+                          type="button"
+                          class="btn btn-warning"
+                          (click)="recibir(z.id)"
+                        >
+                          Recibir
+                        </button>
+                        </div>
+                        <div *ngIf="z.fecha_entrega !== null">
+                            Entregado
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
