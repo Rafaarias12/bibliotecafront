@@ -22,17 +22,11 @@ export class PrestamoService {
   }
 
   post(
-    estado: number,
-    usuario: number,
-    fecha_init: Date,
-    fecha_final: Date,
+    usuario: string,
     libro: number
   ): Observable<any> {
     return this.http.post(this.url + 'add', {
-      estado,
       usuario,
-      fecha_init,
-      fecha_final,
       libro,
     }, httpOption);
   }

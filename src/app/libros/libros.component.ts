@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { filterLibros, loadLibros } from './store/libros.actions';
 import { LibrosService } from '../services/libros.service';
 import Swal from 'sweetalert2';
+import { UsuariosService } from '../services/usuarios.service';
 
 
 @Component({
@@ -31,7 +32,9 @@ export class LibrosComponent implements OnInit{
 
   constructor(
     private store: Store<{ libros: LibrosState }>,
-    private service: LibrosService
+    private service: LibrosService,
+    private usuariosService: UsuariosService,
+    private prestamoService: PrestamoService
   ){
     this.libros$ = this.store.select(state => state.libros.filteredLibros);
   }
@@ -119,6 +122,25 @@ export class LibrosComponent implements OnInit{
 
   getDescripcion(desc: string){
     Swal.fire(desc);
+  }
+
+  getPerfil(){
+    return this.usuariosService.perfilUsuario();
+  }
+
+  prestamoLibro(id: number){
+    const usuario: string = localStorage.getItem('user')?.toString() || "";
+    this.prestamoService.post( usuario, id).subscribe(
+      res=>{
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: res.message,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    )
   }
 
 }

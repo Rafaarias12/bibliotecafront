@@ -46,5 +46,6 @@ export class LibrosService {
 
   getAutor():Observable<any>{
     return this.http.get(this.url + "autor", httpOption)
+    
   }
 }

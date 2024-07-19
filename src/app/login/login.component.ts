@@ -30,7 +30,8 @@ export class LoginComponent {
     this.service.login(usuario, pass).subscribe(
       (res) =>{
         localStorage.setItem('token', res.msg);
-        localStorage.setItem('perfil', res.perfil)
+        localStorage.setItem('perfil', res.perfil);
+        localStorage.setItem('user', res.usuario)
         this.router.navigateByUrl('/in')
       },
       (error) => {
